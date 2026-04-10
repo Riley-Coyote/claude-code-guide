@@ -1148,6 +1148,101 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
 }
 .ref-col-ref a:hover { color: var(--text-primary); }
 
+/* ── File tree (copied from Guide 2 — needed because the file-tree
+   block is reused on this page) ── */
+.file-tree {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-4);
+  white-space: pre;
+  overflow-x: auto;
+}
+.file-tree .dir { color: var(--blue); }
+.file-tree .file { color: var(--text-secondary); }
+.file-tree .desc { color: var(--text-ghost); }
+.file-tree .important { color: var(--agent-luca); }
+
+/* ── Prompt pattern cards ── */
+.prompt-pattern {
+  background: var(--bg-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+  margin-bottom: var(--space-4);
+  transition: border-color var(--dur-normal) var(--ease-out);
+}
+.prompt-pattern:hover { border-color: var(--state-hover-border); }
+.prompt-situation {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+}
+.prompt-title {
+  font-size: 15.5px;
+  font-weight: 450;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+  letter-spacing: -0.005em;
+}
+.prompt-line {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 14px 0;
+  border-top: 1px dashed rgba(255, 255, 255, 0.04);
+}
+.prompt-line:first-of-type { border-top: none; padding-top: 4px; }
+.prompt-line:last-of-type { padding-bottom: 0; }
+.prompt-mark {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.55;
+  text-align: center;
+}
+.prompt-mark.bad { color: var(--red); }
+.prompt-mark.good { color: var(--green); }
+.prompt-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.prompt-text {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 10px 14px;
+  word-break: break-word;
+}
+.prompt-line.good .prompt-text {
+  border-color: rgba(74, 222, 128, 0.15);
+}
+.prompt-line.bad .prompt-text {
+  border-color: rgba(248, 113, 113, 0.15);
+}
+.prompt-why {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-tertiary);
+  font-style: italic;
+  padding: 0 2px;
+}
+
 @media (max-width: 820px) {
   .ref-grid { grid-template-columns: 1fr; }
   .ref-table-header,
@@ -1208,8 +1303,9 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
       <li><a href="#pyramid"><span class="toc-num">07</span>Verification Pyramid</a></li>
       <li><a href="#gates"><span class="toc-num">08</span>Quality Gates</a></li>
       <li><a href="#antipatterns"><span class="toc-num">09</span>Anti-Patterns</a></li>
-      <li><a href="#memorize"><span class="toc-num">10</span>The Loop · Memorize</a></li>
-      <li><a href="#rules"><span class="toc-num">11</span>Golden Rules</a></li>
+      <li><a href="#prompts"><span class="toc-num">10</span>Prompt Patterns</a></li>
+      <li><a href="#memorize"><span class="toc-num">11</span>The Loop · Memorize</a></li>
+      <li><a href="#rules"><span class="toc-num">12</span>Golden Rules</a></li>
     </ol>
   </nav>
 
@@ -1778,10 +1874,178 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
     </div>
   </div>
 
+  <div class="chapter" id="prompts">
+    <div class="ch-num fx-shimmer-label">Part 10 · Prompt Patterns</div>
+    <h2 class="ch-title">How to phrase the things you type, not the commands.</h2>
+    <div class="ch-sub">Most of what you say to Claude Code isn't a slash command — it's plain-text prompts. These are the patterns that make the difference between the outcome you wanted and the one you got.</div>
+
+    <div class="section">
+
+      <div class="prompt-pattern">
+        <div class="prompt-situation">Situation 01</div>
+        <div class="prompt-title">Starting a new session</div>
+        <div class="prompt-line bad">
+          <div class="prompt-mark bad">✗</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Tell me everything you know about this project before we start.</div>
+            <div class="prompt-why">Burns 20–40% of context on a memory dump that may not be relevant to today's task. The whole point of CLAUDE.md and PROGRESS.md is to load context automatically — this prompt bypasses them.</div>
+          </div>
+        </div>
+        <div class="prompt-line good">
+          <div class="prompt-mark good">✓</div>
+          <div class="prompt-body">
+            <div class="prompt-text">/resume</div>
+            <div class="prompt-why">CLAUDE.md loads automatically at session start. PROGRESS.md has the current state. Claude pulls only the context it needs for the specific task. State your intent, don't request a briefing.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-pattern">
+        <div class="prompt-situation">Situation 02</div>
+        <div class="prompt-title">Asking for investigation without changes</div>
+        <div class="prompt-line bad">
+          <div class="prompt-mark bad">✗</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Look at the code and fix any bugs you find.</div>
+            <div class="prompt-why">Conflates investigation and mutation. Claude will start editing immediately, often fixing things you didn't want fixed, and you lose the chance to validate the diagnosis before the changes land.</div>
+          </div>
+        </div>
+        <div class="prompt-line good">
+          <div class="prompt-mark good">✓</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Read src/adapters/claude-inject.ts. Identify any type errors, unused variables, or missing error handling. Report findings as a numbered list. Don't make changes yet.</div>
+            <div class="prompt-why">Separates read from write. You get a diagnosis you can validate first, then you give a second prompt for the fix. Use plan mode (Shift+Tab) for safe investigation of unfamiliar code.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-pattern">
+        <div class="prompt-situation">Situation 03</div>
+        <div class="prompt-title">Delegating a build task</div>
+        <div class="prompt-line bad">
+          <div class="prompt-mark bad">✗</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Build the API for me.</div>
+            <div class="prompt-why">Vague scope, no acceptance criteria, no file paths, no constraints. Claude guesses — sometimes well, often not — and you waste a session reviewing work that doesn't match what you wanted.</div>
+          </div>
+        </div>
+        <div class="prompt-line good">
+          <div class="prompt-mark good">✓</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Read docs/tasks/task-03-api.md and implement exactly what it specifies. When done, run bash scripts/verify/verify-step-03.sh. Fix any failing checks (max 5 attempts per check). Update PROGRESS.md.</div>
+            <div class="prompt-why">Points at a self-contained task brief. Includes the verification step. Sets the fix-loop iteration cap. The brief does the scope work; the prompt just hands it off.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-pattern">
+        <div class="prompt-situation">Situation 04</div>
+        <div class="prompt-title">Fixing errors from verification</div>
+        <div class="prompt-line bad">
+          <div class="prompt-mark bad">✗</div>
+          <div class="prompt-body">
+            <div class="prompt-text">The build is broken. Fix it.</div>
+            <div class="prompt-why">Claude has no idea what "broken" means. It will start guessing, possibly rewriting working code. Also skips the JSON verification output that would tell it exactly what failed and why.</div>
+          </div>
+        </div>
+        <div class="prompt-line good">
+          <div class="prompt-mark good">✓</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Run bash scripts/verify/verify-step-03.sh and paste the JSON output. For each failing check, identify the root cause and propose a fix. Apply fixes one at a time and re-verify between each.</div>
+            <div class="prompt-why">Forces Claude to read the structured failure data instead of guessing. Incremental fixes let you catch regressions before they compound.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-pattern">
+        <div class="prompt-situation">Situation 05</div>
+        <div class="prompt-title">Scope control (preventing gold-plating)</div>
+        <div class="prompt-line bad">
+          <div class="prompt-mark bad">✗</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Add error handling to the login function.</div>
+            <div class="prompt-why">Claude may refactor surrounding code, add retry logic, add logging, add new dependencies, and rename variables while it's in there. None of which you asked for.</div>
+          </div>
+        </div>
+        <div class="prompt-line good">
+          <div class="prompt-mark good">✓</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Add a try/catch around the await call on line 47 of src/auth/login.ts. Only that. Don't touch anything else in the file, don't refactor, don't add logging, don't add retries.</div>
+            <div class="prompt-why">Specific file, specific line, explicit don't-do list. Claude Code defaults to doing more than you asked — aggressive scope language is the counter-force.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-pattern">
+        <div class="prompt-situation">Situation 06</div>
+        <div class="prompt-title">Code review requests</div>
+        <div class="prompt-line bad">
+          <div class="prompt-mark bad">✗</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Review the code and let me know what you think.</div>
+            <div class="prompt-why">No scope, no criteria, no priority. You'll get a generic "looks good" or a flood of nitpicks, rarely the specific issues that matter.</div>
+          </div>
+        </div>
+        <div class="prompt-line good">
+          <div class="prompt-mark good">✓</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Review the diff since the last commit. Focus on: (1) correctness of the async error paths, (2) adherence to the code style in CLAUDE.md, (3) any missing input validation at the API boundary. Report issues in priority order. Skip style nitpicks.</div>
+            <div class="prompt-why">Specifies what to look for and what to ignore. Review quality is proportional to how well you narrow the focus.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-pattern">
+        <div class="prompt-situation">Situation 07</div>
+        <div class="prompt-title">Planning something from scratch</div>
+        <div class="prompt-line bad">
+          <div class="prompt-mark bad">✗</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Help me build a task management app with React.</div>
+            <div class="prompt-why">Under-specified. Claude will make a dozen architectural decisions you didn't intend, and you'll spend hours undoing them.</div>
+          </div>
+        </div>
+        <div class="prompt-line good">
+          <div class="prompt-mark good">✓</div>
+          <div class="prompt-body">
+            <div class="prompt-text">I want to build a task management app. Ask me the questions you need answered to write a complete CLAUDE.md for it. One question at a time. Don't suggest answers — wait for mine.</div>
+            <div class="prompt-why">Inverts the flow. Claude interviews you. You answer. The resulting CLAUDE.md reflects your decisions, not its defaults. This is the Phase 01 Ideate pattern.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-pattern">
+        <div class="prompt-situation">Situation 08</div>
+        <div class="prompt-title">When you genuinely don't know what's wrong</div>
+        <div class="prompt-line bad">
+          <div class="prompt-mark bad">✗</div>
+          <div class="prompt-body">
+            <div class="prompt-text">Something is broken and I don't know why. Help.</div>
+            <div class="prompt-why">Claude will cast a wide net and often fix the wrong thing. You lose visibility into the diagnosis.</div>
+          </div>
+        </div>
+        <div class="prompt-line good">
+          <div class="prompt-mark good">✓</div>
+          <div class="prompt-body">
+            <div class="prompt-text">I expected [X] when I ran [Y], but got [Z]. Don't fix anything yet. Walk me through your hypothesis for what's causing this and what you'd check first to confirm. Wait for my go-ahead before making changes.</div>
+            <div class="prompt-why">Expected/actual/question is the universal debugging prompt. Asking for hypothesis-before-action keeps you in the loop and usually exposes the issue in the thinking itself.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+    </div>
+  </div>
+
   <!-- ═══ PART 3 · ESSENTIALS ═══ -->
 
   <div class="chapter" id="memorize">
-    <div class="ch-num fx-shimmer-label">Part 10 · The Loop — Memorize This</div>
+    <div class="ch-num fx-shimmer-label">Part 11 · The Loop — Memorize This</div>
     <h2 class="ch-title">Seven steps, one cycle, the whole thing.</h2>
     <div class="ch-sub">If you internalize one thing from the guide, internalize this.</div>
 
@@ -1829,7 +2093,7 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
   </div>
 
   <div class="chapter" id="rules">
-    <div class="ch-num fx-shimmer-label">Part 11 · Golden Rules</div>
+    <div class="ch-num fx-shimmer-label">Part 12 · Golden Rules</div>
     <h2 class="ch-title">The five rules that govern everything.</h2>
     <div class="ch-sub">When in doubt, apply one of these.</div>
 
