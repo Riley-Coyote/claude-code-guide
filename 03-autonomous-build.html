@@ -822,6 +822,199 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
   color: var(--ink);
 }
 
+/* ── Dot grid variants ── */
+.fx-dot-grid.fx-dot-grid-large {
+  grid-template-columns: repeat(16, 5px);
+  gap: 14px;
+}
+.fx-dot-grid.fx-dot-grid-large .fx-dot {
+  width: 5px;
+  height: 5px;
+}
+.fx-dot-grid.fx-dot-grid-row {
+  grid-template-columns: repeat(16, 3px);
+  gap: 12px;
+}
+
+/* ── Section marker (between chapters) ── */
+.fx-section-marker {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
+  margin: 4px 0;
+}
+
+/* ── Wide flow frame: breaks out of 820px on desktop, wraps on small ── */
+.fx-flow-frame.wide {
+  margin-left: -90px;
+  margin-right: -90px;
+  max-width: calc(100% + 180px);
+}
+.fx-flow-frame.wide .flow {
+  justify-content: center;
+  overflow: visible;
+}
+@media (max-width: 1040px) {
+  .fx-flow-frame.wide {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+  .fx-flow-frame.wide .flow {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    row-gap: 8px;
+  }
+}
+
+/* ── Core Loop SVG (circular state machine) ── */
+.fx-core-loop-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 0;
+  position: relative;
+}
+.fx-core-loop {
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  overflow: visible;
+}
+.fx-core-loop .cl-ring {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.07);
+  stroke-width: 1;
+}
+.fx-core-loop .cl-ring-ticks {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 1;
+  stroke-dasharray: 1 11;
+}
+.fx-core-loop .cl-station {
+  fill: rgba(255, 255, 255, 0.025);
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 1;
+}
+.fx-core-loop .cl-name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  text-anchor: middle;
+  fill: rgba(255, 255, 255, 0.87);
+}
+.fx-core-loop .cl-num {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.8px;
+  text-anchor: middle;
+  fill: rgba(255, 255, 255, 0.26);
+}
+.fx-core-loop .cl-center {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2.2px;
+  fill: rgba(255, 255, 255, 0.32);
+  text-anchor: middle;
+}
+.fx-core-loop .cl-symbol {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  fill: rgba(255, 255, 255, 0.48);
+  text-anchor: middle;
+  animation: fx-breathe 7.3s ease-in-out infinite;
+}
+.fx-core-loop .cl-active .cl-station {
+  fill: rgba(96, 165, 250, 0.12);
+  stroke: rgba(96, 165, 250, 0.48);
+  stroke-width: 1.5;
+  animation: fx-cl-pulse 4.3s ease-in-out infinite;
+}
+.fx-core-loop .cl-active .cl-name {
+  fill: #60a5fa;
+}
+@keyframes fx-cl-pulse {
+  0%, 100% { fill-opacity: 0.40; stroke-opacity: 1; }
+  50%      { fill-opacity: 0.95; stroke-opacity: 0.55; }
+}
+
+/* ── Verification Pyramid SVG (baseline-neutral grayscale) ── */
+.fx-pyramid-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0 24px;
+}
+.fx-pyramid {
+  display: block;
+  width: 100%;
+  max-width: 580px;
+  height: auto;
+}
+.fx-pyramid .pyr-tier {
+  stroke: rgba(255, 255, 255, 0.10);
+  stroke-width: 1;
+}
+.fx-pyramid .pyr-tier-1 { fill: rgba(255, 255, 255, 0.028); }
+.fx-pyramid .pyr-tier-2 { fill: rgba(255, 255, 255, 0.038); }
+.fx-pyramid .pyr-tier-3 { fill: rgba(255, 255, 255, 0.050); }
+.fx-pyramid .pyr-tier-4 { fill: rgba(255, 255, 255, 0.066); }
+.fx-pyramid .pyr-tier-5 { fill: rgba(255, 255, 255, 0.086); }
+.fx-pyramid .pyr-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  fill: rgba(255, 255, 255, 0.80);
+  text-anchor: middle;
+}
+.fx-pyramid .pyr-sub {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.4px;
+  fill: rgba(255, 255, 255, 0.34);
+  text-anchor: middle;
+}
+.fx-pyramid .pyr-axis {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2.4px;
+  fill: rgba(255, 255, 255, 0.38);
+  text-anchor: middle;
+}
+.fx-pyramid .pyr-axis-line {
+  stroke: rgba(255, 255, 255, 0.10);
+  stroke-width: 1;
+}
+
+/* ── Golden Rules emphasized wrapper ── */
+.fx-golden-rules {
+  padding: 32px 28px 28px;
+  margin-top: 18px;
+  border-radius: var(--radius-md);
+}
+.fx-golden-rules-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.fx-golden-rules-header .fx-dot-grid {
+  margin: 0;
+}
+.fx-golden-rules .callout {
+  margin-bottom: 10px;
+}
+.fx-golden-rules .callout:last-child { margin-bottom: 0; }
+
 /* ── Reduced motion gate — kills every fx-* animation ── */
 @media (prefers-reduced-motion: reduce) {
   .fx-glow-border::before,
@@ -830,6 +1023,8 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
   .fx-pulse-line::after,
   .fx-ascii-strip,
   .fx-shimmer-label,
+  .fx-core-loop .cl-symbol,
+  .fx-core-loop .cl-active .cl-station,
   body.fx-booted .fx-boot-in,
   body.fx-booted .fx-hero-boot {
     animation: none !important;
@@ -913,6 +1108,14 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
     </ol>
   </nav>
 
+  <div class="fx-section-marker" style="padding: 40px 0 56px;">
+    <div class="fx-dot-grid fx-dot-grid-large">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+    </div>
+  </div>
+
   <div class="chapter" id="s1">
     <div class="ch-num fx-shimmer-label">Section 01</div>
     <h2 class="ch-title">The Core Loop</h2>
@@ -921,18 +1124,44 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
     </div>
 
     <div class="section">
-      <div class="fx-glow-border fx-flow-frame">
-        <div class="flow">
-          <div class="flow-step active">BUILD</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-step">VERIFY</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-step red">FIX</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-step green">VERIFY</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-step">COMMIT</div>
-        </div>
+      <div class="fx-glow-border fx-core-loop-wrap">
+        <svg class="fx-core-loop" viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="cl-title cl-desc">
+          <title id="cl-title">The Autonomous Loop</title>
+          <desc id="cl-desc">Five-stage cycle: Build, Verify, Fix, Verify, Commit — arranged around a ring. Build is the active station.</desc>
+
+          <circle class="cl-ring-ticks" cx="230" cy="230" r="192"/>
+          <circle class="cl-ring" cx="230" cy="230" r="160"/>
+
+          <text class="cl-center" x="230" y="222">THE AUTONOMOUS</text>
+          <text class="cl-center" x="230" y="237">LOOP</text>
+          <text class="cl-symbol" x="230" y="262">↻</text>
+
+          <g class="cl-active">
+            <circle class="cl-station" cx="230" cy="70" r="36"/>
+            <text class="cl-name" x="230" y="67">BUILD</text>
+            <text class="cl-num" x="230" y="82">01</text>
+          </g>
+          <g>
+            <circle class="cl-station" cx="382" cy="180" r="36"/>
+            <text class="cl-name" x="382" y="177">VERIFY</text>
+            <text class="cl-num" x="382" y="192">02</text>
+          </g>
+          <g>
+            <circle class="cl-station" cx="324" cy="359" r="36"/>
+            <text class="cl-name" x="324" y="356">FIX</text>
+            <text class="cl-num" x="324" y="371">03</text>
+          </g>
+          <g>
+            <circle class="cl-station" cx="136" cy="359" r="36"/>
+            <text class="cl-name" x="136" y="356">VERIFY</text>
+            <text class="cl-num" x="136" y="371">04</text>
+          </g>
+          <g>
+            <circle class="cl-station" cx="78" cy="180" r="36"/>
+            <text class="cl-name" x="78" y="177">COMMIT</text>
+            <text class="cl-num" x="78" y="192">05</text>
+          </g>
+        </svg>
       </div>
 
       <div class="prose">
@@ -956,6 +1185,13 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
     </div>
   </div>
 
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+    </div>
+  </div>
+
   <div class="chapter" id="s2">
     <div class="ch-num blue fx-shimmer-label">Build · Step 01</div>
     <h2 class="ch-title">Code Generation</h2>
@@ -973,6 +1209,13 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
       <div class="prose">
         A task brief is <strong>not</strong> a casual request. It's a formal specification that a subagent Claude instance reads once and implements completely. Include: exact scope, file paths, relevant type definitions inlined, constraints from CLAUDE.md, and acceptance criteria. The subagent shouldn't need to read anything else.
       </div>
+    </div>
+  </div>
+
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1014,6 +1257,13 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
     { <span class="str">"check"</span>: <span class="str">"typescript_clean"</span>, <span class="str">"pass"</span>: <span class="kw">false</span>, <span class="str">"detail"</span>: <span class="str">"Type error on line 45: expected string, got undefined"</span> }
   ]
 }</div>
+    </div>
+  </div>
+
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1090,6 +1340,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
     </div>
   </div>
 
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+    </div>
+  </div>
+
   <div class="chapter" id="s5">
     <div class="ch-num blue fx-shimmer-label">Build · Step 03</div>
     <h2 class="ch-title">The Verification Pyramid</h2>
@@ -1097,48 +1354,59 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
 
     <div class="section">
       <div class="prose">
-        Build verification scripts that test at multiple levels: <strong>file existence</strong> (does the code exist?), <strong>pattern matching</strong> (does it contain the required functions?), <strong>compilation</strong> (does TypeScript accept it?), <strong>tests</strong> (do unit tests pass?), <strong>behavioral</strong> (does it actually work?). The first three catch issues fast. The last one catches subtle bugs.
+        Build verification scripts that test at multiple levels. The bottom of the pyramid runs in milliseconds and catches most issues. The top runs slowly but catches subtle bugs. You want <em>many</em> checks at the bottom and <em>few</em> at the top.
       </div>
 
-      <div class="principle">
-        <div class="principle-num">1</div>
-        <div>
-          <div class="principle-title">File existence checks</div>
-          <div class="principle-body">Is the file created? Does it exist at the right path?</div>
-        </div>
+      <div class="fx-pyramid-wrap">
+        <svg class="fx-pyramid" viewBox="0 0 580 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pyr-title pyr-desc">
+          <title id="pyr-title">The Verification Pyramid</title>
+          <desc id="pyr-desc">Five tiers from cheap, fast file existence checks at the bottom to expensive, slow behavioral checks at the top.</desc>
+
+          <!-- Top axis indicator -->
+          <text class="pyr-axis" x="290" y="20">SLOW · EXPENSIVE · FEW</text>
+          <line class="pyr-axis-line" x1="232" y1="30" x2="348" y2="30"/>
+
+          <!-- Tier 5: BEHAVIORAL (top, narrowest) -->
+          <rect class="pyr-tier pyr-tier-5" x="230" y="48" width="120" height="52" rx="1"/>
+          <text class="pyr-label" x="290" y="72">BEHAVIORAL</text>
+          <text class="pyr-sub" x="290" y="87">does it actually work?</text>
+
+          <!-- Tier 4: TESTS -->
+          <rect class="pyr-tier pyr-tier-4" x="180" y="108" width="220" height="52" rx="1"/>
+          <text class="pyr-label" x="290" y="132">TESTS</text>
+          <text class="pyr-sub" x="290" y="147">npm test passes?</text>
+
+          <!-- Tier 3: COMPILATION -->
+          <rect class="pyr-tier pyr-tier-3" x="130" y="168" width="320" height="52" rx="1"/>
+          <text class="pyr-label" x="290" y="192">COMPILATION</text>
+          <text class="pyr-sub" x="290" y="207">npx tsc --noEmit exits clean</text>
+
+          <!-- Tier 2: PATTERN MATCH -->
+          <rect class="pyr-tier pyr-tier-2" x="80" y="228" width="420" height="52" rx="1"/>
+          <text class="pyr-label" x="290" y="252">PATTERN MATCH</text>
+          <text class="pyr-sub" x="290" y="267">required functions / exports present?</text>
+
+          <!-- Tier 1: FILE EXISTENCE (bottom, widest) -->
+          <rect class="pyr-tier pyr-tier-1" x="30" y="288" width="520" height="52" rx="1"/>
+          <text class="pyr-label" x="290" y="312">FILE EXISTENCE</text>
+          <text class="pyr-sub" x="290" y="327">does the file exist at the right path?</text>
+
+          <!-- Bottom axis indicator -->
+          <line class="pyr-axis-line" x1="232" y1="355" x2="348" y2="355"/>
+          <text class="pyr-axis" x="290" y="372">FAST · CHEAP · MANY</text>
+        </svg>
       </div>
 
-      <div class="principle">
-        <div class="principle-num">2</div>
-        <div>
-          <div class="principle-title">Pattern matching checks</div>
-          <div class="principle-body">Does the code contain required functions, exports, or implementations?</div>
-        </div>
+      <div class="callout">
+        <p><strong>The shape matters:</strong> the bottom three tiers catch issues in seconds. The top two tiers take minutes to run. A healthy verification script has dozens of bottom-tier checks and a handful of top-tier ones — not the other way around.</p>
       </div>
+    </div>
+  </div>
 
-      <div class="principle">
-        <div class="principle-num">3</div>
-        <div>
-          <div class="principle-title">Compilation checks</div>
-          <div class="principle-body"><code>npx tsc --noEmit</code> — does TypeScript accept it?</div>
-        </div>
-      </div>
 
-      <div class="principle">
-        <div class="principle-num">4</div>
-        <div>
-          <div class="principle-title">Test checks</div>
-          <div class="principle-body"><code>npm test</code> — do unit tests pass?</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">5</div>
-        <div>
-          <div class="principle-title">Behavioral checks</div>
-          <div class="principle-body">API response time, data persistence, integration with other components.</div>
-        </div>
-      </div>
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1155,6 +1423,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
       <div class="callout">
         <p><strong>Cross-step verification:</strong> In CLAUDE.md, mark which steps are prerequisites for other steps. Claude checks dependencies before starting a step.</p>
       </div>
+    </div>
+  </div>
+
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1178,6 +1453,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
           <div class="compare-body">After 5 attempts, Claude logs "BLOCKED: API endpoint returns 500 on line 87" and continues to the next step.</div>
         </div>
       </div>
+    </div>
+  </div>
+
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1222,6 +1504,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
     </div>
   </div>
 
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+    </div>
+  </div>
+
   <div class="chapter" id="s9">
     <div class="ch-num fx-shimmer-label">Section 09</div>
     <h2 class="ch-title">Quality Gates</h2>
@@ -1254,6 +1543,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
         <div class="card-title">/testing-strategy — After test steps</div>
         <div class="card-body">Validate that test coverage follows the testing pyramid: mostly unit tests, some integration tests, few end-to-end tests. Catches the common mistake of writing only happy-path tests.</div>
       </div>
+    </div>
+  </div>
+
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1295,6 +1591,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
       <div class="prose">
         If the session runs out of context or you need to stop it, the last thing to verify is that PROGRESS.md has been updated. If it hasn't, ask Claude to update it before closing. The next session depends entirely on that file being accurate.
       </div>
+    </div>
+  </div>
+
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1371,6 +1674,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
     </div>
   </div>
 
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+    </div>
+  </div>
+
   <div class="chapter" id="s13">
     <div class="ch-num purple fx-shimmer-label">Polish · Step 01</div>
     <h2 class="ch-title">Polish</h2>
@@ -1384,6 +1694,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
       <div class="callout">
         <p><strong>In Polish, perfection is cheap.</strong> You already have working code. Claude can iterate on UX details, add transitions, improve colors, optimize layouts — all within the same verification framework.</p>
       </div>
+    </div>
+  </div>
+
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1424,6 +1741,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
     </div>
   </div>
 
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+    </div>
+  </div>
+
   <div class="chapter" id="s15">
     <div class="ch-num purple fx-shimmer-label">Polish · Step 03</div>
     <h2 class="ch-title">Documentation</h2>
@@ -1437,6 +1761,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
       <div class="callout">
         <p><strong>Claude is great at documentation.</strong> It can generate README sections, API docs, architecture diagrams, and decision records from the implemented code. Use Polish to formalize the knowledge you've built.</p>
       </div>
+    </div>
+  </div>
+
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1463,6 +1794,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
     </div>
   </div>
 
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+    </div>
+  </div>
+
   <div class="chapter" id="s17">
     <div class="ch-num purple fx-shimmer-label">Polish · Step 05</div>
     <h2 class="ch-title">Code Quality</h2>
@@ -1472,6 +1810,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
       <div class="prose">
         Code linting, type safety, test coverage targets, accessibility compliance (WCAG), security scanning. This is where you enforce quality standards so future maintainers (including future-you) have an easy time. Targets: 90%+ test coverage, zero TypeScript errors even with strict mode, WCAG AA accessibility, no security vulnerabilities in dependencies.
       </div>
+    </div>
+  </div>
+
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
     </div>
   </div>
 
@@ -1567,6 +1912,13 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
     </div>
   </div>
 
+
+  <div class="fx-section-marker">
+    <div class="fx-dot-grid fx-dot-grid-row">
+      <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+    </div>
+  </div>
+
   <div class="chapter" id="s20">
     <div class="ch-num fx-shimmer-label">Section 20</div>
     <h2 class="ch-title">Quick Reference</h2>
@@ -1605,7 +1957,7 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
 
     <div class="section">
       <div class="section-label">The Loop (Memorize This)</div>
-      <div class="fx-glow-border fx-flow-frame">
+      <div class="fx-glow-border fx-flow-frame wide">
         <div class="flow">
           <div class="flow-step">Read brief</div>
           <div class="flow-arrow">→</div>
@@ -1641,22 +1993,34 @@ echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PAS
     </div>
 
     <div class="section">
-      <div class="section-label">Golden Rules</div>
+      <div class="fx-glow-border fx-golden-rules">
+        <div class="fx-golden-rules-header">
+          <div class="fx-dot-grid fx-dot-grid-tiny" style="grid-template-columns: repeat(3, 2px); gap: 4px;">
+            <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+            <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+            <span class="fx-dot"></span><span class="fx-dot"></span><span class="fx-dot"></span>
+          </div>
+          <span>Golden Rules</span>
+          <div style="flex:1; height:1px; background: rgba(255,255,255,0.06); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; height: 100%; width: 35%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent); animation: fx-pulse-travel 13s ease-in-out infinite;"></div>
+          </div>
+        </div>
 
-      <div class="callout">
-        <p><strong>1.</strong> CLAUDE.md is the bootstrap. PROGRESS.md is the memory. Verification scripts are the feedback. Task briefs are the delegation interface. Everything else is implementation detail.</p>
-      </div>
-      <div class="callout">
-        <p><strong>2.</strong> The orchestrator manages state. Subagents write code. Never blur these roles.</p>
-      </div>
-      <div class="callout">
-        <p><strong>3.</strong> Machine-readable verification is the single most important investment. Every hour spent writing specific checks saves ten hours of Claude debugging vague failures.</p>
-      </div>
-      <div class="callout">
-        <p><strong>4.</strong> State your intent on session start. Let CLAUDE.md and PROGRESS.md provide the context. Don't front-load with memory dumps.</p>
-      </div>
-      <div class="callout">
-        <p><strong>5.</strong> Five fix attempts, then BLOCKED. Never let one issue consume the whole session.</p>
+        <div class="callout">
+          <p><strong>1.</strong> CLAUDE.md is the bootstrap. PROGRESS.md is the memory. Verification scripts are the feedback. Task briefs are the delegation interface. Everything else is implementation detail.</p>
+        </div>
+        <div class="callout">
+          <p><strong>2.</strong> The orchestrator manages state. Subagents write code. Never blur these roles.</p>
+        </div>
+        <div class="callout">
+          <p><strong>3.</strong> Machine-readable verification is the single most important investment. Every hour spent writing specific checks saves ten hours of Claude debugging vague failures.</p>
+        </div>
+        <div class="callout">
+          <p><strong>4.</strong> State your intent on session start. Let CLAUDE.md and PROGRESS.md provide the context. Don't front-load with memory dumps.</p>
+        </div>
+        <div class="callout">
+          <p><strong>5.</strong> Five fix attempts, then BLOCKED. Never let one issue consume the whole session.</p>
+        </div>
       </div>
     </div>
   </div>
