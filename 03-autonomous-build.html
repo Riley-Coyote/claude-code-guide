@@ -437,14 +437,22 @@ body.booted .hero-boot {
   .breath-dot,
   .shimmer-text,
   .ascii-divider .ascii-strip,
+  .ch-num,
+  .sys-bar .sys-dot,
+  .sys-bar .sys-line::after,
+  .page-label::before,
+  .core-loop-wrap .center-text .label,
+  .core-loop-wrap .center-text .symbol,
+  .core-loop .loop-symbol,
+  .core-loop .loop-active .station-ring,
   body.booted .boot-in,
   body.booted .hero-boot {
     animation: none !important;
   }
-  .hero-boot {
-    background: none;
-    -webkit-text-fill-color: var(--ink);
-    color: var(--ink);
+  .hero-boot, .ch-num, .core-loop-wrap .center-text .label {
+    background: none !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    color: var(--text-primary) !important;
   }
   .shimmer-text {
     background: none;
@@ -724,11 +732,22 @@ body.booted .hero-boot {
   font-weight: 500;
   letter-spacing: 0.20em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
   margin-bottom: 16px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(220, 218, 214, 0.24) 0%,
+    rgba(244, 243, 240, 0.70) 50%,
+    rgba(220, 218, 214, 0.24) 100%
+  );
+  background-size: 260% 100%;
+  background-position: 150% 50%;
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-slow 17s ease-in-out infinite;
 }
 .ch-num::before {
   content: '';
@@ -737,7 +756,7 @@ body.booted .hero-boot {
   background: var(--accent);
   flex-shrink: 0;
 }
-.ch-num.purple, .ch-num.blue { color: var(--text-tertiary); }
+.ch-num.purple, .ch-num.blue { /* shimmer defined above */ }
 .ch-title {
   font-size: 26px;
   font-weight: 380;
