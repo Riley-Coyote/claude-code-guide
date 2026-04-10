@@ -3,16 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude Code Masterclass — Autonomous Build Systems</title>
+<title>The Claude Code Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;540;620&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* ── Canonical Design System Tokens ──
-     Surfaces within 3-4 hex stops of each other.
-     No deep black (#141414 is darkest). Monochromatic by default. */
-
-  /* Backgrounds */
   --bg-base:       #141414;
   --bg-raised:     #181818;
   --bg-elevated:   #1c1c1c;
@@ -20,7 +16,6 @@
   --bg-inset:      #111111;
   --bg-glass:      rgba(20, 20, 20, 0.85);
 
-  /* Text: pure white at varying opacity — 6-level hierarchy */
   --ink:            rgba(255, 255, 255, 0.92);
   --text-primary:   rgba(255, 255, 255, 0.87);
   --text-secondary: rgba(255, 255, 255, 0.60);
@@ -28,7 +23,6 @@
   --text-ghost:     rgba(255, 255, 255, 0.14);
   --text-invisible: rgba(255, 255, 255, 0.07);
 
-  /* Type scale */
   --type-xs:   10px;
   --type-sm:   12px;
   --type-base: 14px;
@@ -38,7 +32,6 @@
   --type-2xl:  29px;
   --type-3xl:  35px;
 
-  /* Spacing scale */
   --space-1:   4px;
   --space-2:   8px;
   --space-3:   12px;
@@ -51,7 +44,6 @@
   --space-16:  64px;
   --space-20:  80px;
 
-  /* Font weights */
   --weight-thin:     280;
   --weight-light:    320;
   --weight-normal:   400;
@@ -59,7 +51,6 @@
   --weight-semibold: 540;
   --weight-bold:     620;
 
-  /* Motion */
   --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
   --ease-premium:  cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -69,64 +60,26 @@
   --dur-normal:  300ms;
   --dur-settle:  320ms;
   --dur-slow:    500ms;
-  --dur-breath:  3000ms;
 
-  /* Borders */
   --border:        rgba(255, 255, 255, 0.06);
   --border-subtle: rgba(255, 255, 255, 0.03);
   --border-focus:  rgba(255, 255, 255, 0.16);
 
-  /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15);
   --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.20);
 
-  /* Radii */
   --radius-sm:   6px;
   --radius-md:   10px;
   --radius-lg:   14px;
   --radius-xl:   20px;
-  --radius-full: 9999px;
 
-  /* Functional colors — semantic only */
   --green:      #4ade80;
-  --green-soft: rgba(74, 222, 128, 0.08);
-  --green-dim:  rgba(74, 222, 128, 0.04);
   --amber:      #fbbf24;
-  --amber-soft: rgba(251, 191, 36, 0.08);
-  --amber-dim:  rgba(251, 191, 36, 0.04);
-  --red:        #f87171;
-  --red-soft:   rgba(248, 113, 113, 0.08);
-  --red-dim:    rgba(248, 113, 113, 0.04);
   --blue:       #60a5fa;
-  --blue-soft:  rgba(96, 165, 250, 0.08);
-  --blue-dim:   rgba(96, 165, 250, 0.04);
   --purple:     #a78bfa;
-  --purple-soft: rgba(167, 139, 250, 0.08);
-  --purple-dim: rgba(167, 139, 250, 0.04);
 
-  /* Agent colors */
-  --agent-luca:      #c9a87c;
-  --agent-luca-dim:  rgba(201, 168, 124, 0.08);
-  --agent-luca-glow: rgba(201, 168, 124, 0.20);
-  --agent-vektor:      #7ca8c9;
-  --agent-vektor-dim:  rgba(124, 168, 201, 0.08);
-  --agent-vektor-glow: rgba(124, 168, 201, 0.20);
-  --agent-anima:      #c97ca8;
-  --agent-anima-dim:  rgba(201, 124, 168, 0.08);
-  --agent-anima-glow: rgba(201, 124, 168, 0.20);
-
-  /* Fonts */
   --font-sans: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
   --font-mono: 'SF Mono', 'Geist Mono', 'JetBrains Mono', monospace;
-
-  /* Interactive states */
-  --state-hover-bg:     rgba(255, 255, 255, 0.04);
-  --state-hover-border: rgba(255, 255, 255, 0.10);
-  --state-hover-text:   rgba(255, 255, 255, 0.87);
-  --state-focus-ring:   0 0 0 2px var(--bg-base), 0 0 0 4px rgba(255, 255, 255, 0.16);
-  --state-active-bg:    rgba(255, 255, 255, 0.02);
-  --state-active-scale: 0.98;
-  --state-disabled-opacity: 0.35;
 }
 
 body {
@@ -137,6 +90,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.65;
   font-size: var(--type-base);
+  min-height: 100vh;
 }
 
 ::selection { background: rgba(255, 255, 255, 0.15); color: var(--ink); }
@@ -145,1219 +99,268 @@ body {
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.10); }
 
-/* ── Layout ── */
 .page {
   max-width: 820px;
   margin: 0 auto;
-  padding: 80px 40px 120px;
+  padding: 120px 40px 120px;
 }
 
-/* ── Header ── */
 .page-header {
-  margin-bottom: 72px;
-  padding-bottom: 48px;
+  margin-bottom: 80px;
+  padding-bottom: 56px;
   border-bottom: 1px solid var(--border-subtle);
 }
+
 .page-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-xs);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-tertiary);
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
 }
+
 .page-title {
   font-size: var(--type-3xl);
   font-weight: var(--weight-thin);
   letter-spacing: -0.02em;
   color: var(--ink);
-  line-height: 1.2;
-  margin-bottom: 16px;
+  line-height: 1.15;
+  margin-bottom: var(--space-5);
 }
+
 .page-subtitle {
-  font-size: var(--type-base);
+  font-size: var(--type-md);
   color: var(--text-secondary);
   line-height: 1.6;
-  max-width: 600px;
+  max-width: 620px;
 }
 
-/* ── TOC ── */
-.toc {
-  margin-bottom: 72px;
-  padding: 24px 28px;
-  background: var(--bg-raised);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-}
-.toc-title {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-ghost);
-  margin-bottom: 16px;
-}
-.toc-list {
-  list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px 32px;
-}
-.toc-list a {
-  font-size: 13.5px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  padding: 4px 0;
-  transition: color var(--dur-fast) var(--ease-out);
-}
-.toc-list a:hover { color: var(--text-primary); }
-.toc-num {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-ghost);
-  min-width: 18px;
-}
-
-/* ── Chapters ── */
-.chapter {
-  margin-bottom: 72px;
-  padding-bottom: 48px;
-  border-bottom: 1px solid var(--border-subtle);
-}
-.chapter:last-child { border-bottom: none; }
-.ch-num {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-ghost);
-  margin-bottom: 8px;
-}
-.ch-title {
-  font-size: var(--type-xl);
-  font-weight: var(--weight-light);
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  line-height: 1.25;
-  margin-bottom: 8px;
-}
-.ch-sub {
-  font-size: 14px;
-  color: var(--text-tertiary);
-  line-height: 1.6;
-  margin-bottom: var(--space-8);
-  max-width: 600px;
-}
-
-/* ── Sections ── */
-.section { margin-bottom: 32px; }
 .section-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-xs);
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-ghost);
-  margin-bottom: var(--space-3);
-}
-.prose {
-  font-size: var(--type-base);
-  line-height: 1.65;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-4);
-}
-.prose strong { color: var(--text-primary); font-weight: var(--weight-medium); }
-.prose code {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  background: var(--state-hover-bg);
-  padding: 2px 6px;
-  border-radius: 4px;
-  color: var(--text-secondary);
-}
-.prose em { font-style: italic; color: var(--text-secondary); }
-
-/* ── Code blocks ── */
-.code-block {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  line-height: 1.6;
-  background: var(--bg-inset);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: var(--space-4) var(--space-5);
-  overflow-x: auto;
-  margin-bottom: var(--space-4);
-  white-space: pre;
-  color: var(--text-secondary);
-}
-.code-block .cm { color: var(--text-ghost); }
-.code-block .kw { color: var(--blue); }
-.code-block .str { color: var(--green); }
-.code-block .fn { color: var(--blue); }
-.code-block .num { color: var(--amber); }
-.code-block .file { color: var(--purple); }
-
-details.code-details {
-  margin-bottom: 16px;
-}
-details.code-details summary {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.03em;
   color: var(--text-tertiary);
-  cursor: pointer;
-  padding: 8px 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  user-select: none;
-}
-details.code-details summary::before {
-  content: '▸';
-  font-size: 10px;
-  transition: transform var(--dur-fast) var(--ease-out);
-  display: inline-block;
-}
-details.code-details[open] summary::before {
-  transform: rotate(90deg);
+  margin-bottom: var(--space-6);
 }
 
-/* ── Cards ── */
-.card {
+.guides {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-bottom: var(--space-20);
+}
+
+.guide-card {
+  display: block;
   background: var(--bg-raised);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: var(--space-5) var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  text-decoration: none;
+  color: inherit;
+  transition: background var(--dur-normal) var(--ease-out),
+              border-color var(--dur-normal) var(--ease-out),
+              transform var(--dur-normal) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.guide-card::after {
+  content: '→';
+  position: absolute;
+  top: var(--space-8);
+  right: var(--space-8);
+  font-size: var(--type-lg);
+  color: var(--text-tertiary);
+  transition: color var(--dur-normal) var(--ease-out),
+              transform var(--dur-normal) var(--ease-out);
+}
+
+.guide-card:hover {
+  background: var(--bg-elevated);
+  border-color: var(--state-hover-border, rgba(255, 255, 255, 0.10));
+}
+
+.guide-card:hover::after {
+  color: var(--ink);
+  transform: translateX(4px);
+}
+
+.guide-card:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg-base), 0 0 0 4px rgba(255, 255, 255, 0.16);
+}
+
+.guide-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   margin-bottom: var(--space-4);
 }
-.card-label {
+
+.guide-index {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-xs);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.guide-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-ghost);
+}
+
+.guide-tag {
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-ghost);
-  margin-bottom: 6px;
-}
-.card-title {
-  font-size: 15px;
-  font-weight: 450;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-.card-body {
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
 }
 
-/* ── Flow diagrams ── */
-.flow {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  padding: 20px 0;
-  margin-bottom: 16px;
-  overflow-x: auto;
-}
-.flow-step {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 16px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-primary);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.flow-step.active {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
-}
-.flow-step.green {
-  border-color: rgba(74,222,128,0.3);
-  background: var(--green-soft);
-  color: var(--green);
-}
-.flow-step.red {
-  border-color: rgba(248,113,113,0.3);
-  background: var(--red-soft);
-  color: var(--red);
-}
-.flow-arrow {
-  font-size: 14px;
-  color: var(--text-ghost);
-  padding: 0 8px;
-  flex-shrink: 0;
-}
-
-/* ── Principle cards ── */
-.principle {
-  display: grid;
-  grid-template-columns: 40px 1fr;
-  gap: 16px;
-  padding: 20px 24px;
-  background: var(--bg-raised);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  margin-bottom: var(--space-3);
-}
-.principle-num {
-  font-family: var(--font-mono);
-  font-size: var(--type-xl);
+.guide-title {
+  font-size: var(--type-2xl);
   font-weight: var(--weight-light);
-  color: var(--text-ghost);
-  line-height: 1;
-  padding-top: 2px;
-}
-.principle-title {
-  font-size: 14.5px;
-  font-weight: 450;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-}
-.principle-body {
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--text-secondary);
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: var(--space-3);
+  padding-right: var(--space-10);
 }
 
-/* ── File tree ── */
-.file-tree {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  line-height: 1.7;
+.guide-description {
+  font-size: var(--type-base);
   color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: var(--space-5);
+  max-width: 600px;
+}
+
+.guide-chapters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.chapter-chip {
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
   background: var(--bg-inset);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: var(--space-4) var(--space-5);
-  margin-bottom: var(--space-4);
-  white-space: pre;
+  padding: 6px 10px;
 }
-.file-tree .dir { color: var(--blue); }
-.file-tree .file { color: var(--text-secondary); }
-.file-tree .desc { color: var(--text-ghost); }
-.file-tree .important { color: var(--agent-luca); }
 
-/* ── Comparison table ── */
-.compare {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
+.footer {
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
 }
-.compare-card {
-  padding: 16px 20px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-subtle);
-}
-.compare-card.bad {
-  background: var(--red-soft);
-  border-color: rgba(248,113,113,0.15);
-}
-.compare-card.good {
-  background: var(--green-soft);
-  border-color: rgba(74,222,128,0.15);
-}
-.compare-label {
+
+.footer-text {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.compare-card.bad .compare-label { color: var(--red); }
-.compare-card.good .compare-label { color: var(--green); }
-.compare-body {
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
 }
 
-/* ── Callout ── */
-.callout {
-  padding: 16px 20px;
-  border-left: 2px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.025);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  margin-bottom: 16px;
+.footer-link {
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  transition: color var(--dur-normal) var(--ease-out);
 }
-.callout p {
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-}
-.callout strong { color: var(--text-primary); }
 
-.callout.warn {
-  border-left-color: var(--amber);
-  background: var(--amber-soft);
+.footer-link:hover {
+  color: var(--ink);
 }
-.callout.warn strong { color: var(--amber); }
 
-/* ── Responsive ── */
-@media (max-width: 700px) {
-  .page { padding: 40px 20px 80px; }
-  .page-title { font-size: 28px; }
-  .toc-list { grid-template-columns: 1fr; }
-  .compare { grid-template-columns: 1fr; }
-  .flow { flex-wrap: wrap; gap: 4px; }
+@media (max-width: 640px) {
+  .page { padding: 64px 24px 80px; }
+  .page-title { font-size: var(--type-2xl); }
+  .guide-card { padding: var(--space-6); }
+  .guide-title { font-size: var(--type-xl); padding-right: var(--space-8); }
+  .guide-card::after { top: var(--space-6); right: var(--space-6); }
 }
 </style>
 </head>
 <body>
-<div class="page">
+<main class="page">
 
-  <!-- ═══ HEADER ═══ -->
   <header class="page-header">
-    <div class="page-label">Reference Guide</div>
-    <h1 class="page-title">Autonomous Claude Code</h1>
-    <p class="page-subtitle">
-      How to structure projects for fully autonomous AI execution — recursive self-improvement, subagent delegation, machine-readable verification, and cross-session state. Derived from building Sovereign Mind, a production Chrome extension built entirely by Claude Code with zero human code edits.
-    </p>
+    <div class="page-label">The Claude Code Guide</div>
+    <h1 class="page-title">Mastering Claude Code.</h1>
+    <p class="page-subtitle">Two companion guides — one for the full journey from idea to shipped, one for the autonomous build systems that make it possible.</p>
   </header>
 
-  <!-- ═══ TABLE OF CONTENTS ═══ -->
-  <nav class="toc">
-    <div class="toc-title">Contents</div>
-    <ol class="toc-list">
-      <li><a href="#ch1"><span class="toc-num">01</span>The Core Loop</a></li>
-      <li><a href="#ch2"><span class="toc-num">02</span>Project Anatomy</a></li>
-      <li><a href="#ch3"><span class="toc-num">03</span>CLAUDE.md — The Bootstrap File</a></li>
-      <li><a href="#ch4"><span class="toc-num">04</span>Machine-Readable Verification</a></li>
-      <li><a href="#ch5"><span class="toc-num">05</span>Task Briefs & Subagent Delegation</a></li>
-      <li><a href="#ch6"><span class="toc-num">06</span>Custom Slash Commands</a></li>
-      <li><a href="#ch7"><span class="toc-num">07</span>Cross-Session State</a></li>
-      <li><a href="#ch8"><span class="toc-num">08</span>Quality Gates</a></li>
-      <li><a href="#ch9"><span class="toc-num">09</span>Session Management</a></li>
-      <li><a href="#ch10"><span class="toc-num">10</span>Context Window Economics</a></li>
-      <li><a href="#ch11"><span class="toc-num">11</span>Anti-Patterns</a></li>
-      <li><a href="#ch12"><span class="toc-num">12</span>Quick Reference</a></li>
-    </ol>
+  <div class="section-label">Guides</div>
+
+  <nav class="guides">
+
+    <a class="guide-card" href="complete-build-flow.html">
+      <div class="guide-meta">
+        <span class="guide-index">Guide 01</span>
+        <span class="guide-dot"></span>
+        <span class="guide-tag">Narrative · Journey</span>
+      </div>
+      <h2 class="guide-title">The Complete Build Flow</h2>
+      <p class="guide-description">From spark to shipped. The full three-phase journey: ideation with Claude as your thinking partner, autonomous code generation, then polish and hardening. Follow a real project from first idea to launch.</p>
+      <div class="guide-chapters">
+        <span class="chapter-chip">Spark</span>
+        <span class="chapter-chip">Code</span>
+        <span class="chapter-chip">Polish</span>
+        <span class="chapter-chip">26 Sections</span>
+      </div>
+    </a>
+
+    <a class="guide-card" href="masterclass.html">
+      <div class="guide-meta">
+        <span class="guide-index">Guide 02</span>
+        <span class="guide-dot"></span>
+        <span class="guide-tag">Reference · Deep Dive</span>
+      </div>
+      <h2 class="guide-title">Autonomous Build Systems</h2>
+      <p class="guide-description">The technical masterclass. The core loop, CLAUDE.md bootstrap, machine-readable verification, task briefs, subagent delegation, quality gates, context window economics, and the anti-patterns that sink autonomous builds.</p>
+      <div class="guide-chapters">
+        <span class="chapter-chip">Core Loop</span>
+        <span class="chapter-chip">Verification</span>
+        <span class="chapter-chip">Subagents</span>
+        <span class="chapter-chip">Quality Gates</span>
+        <span class="chapter-chip">12 Chapters</span>
+      </div>
+    </a>
+
   </nav>
 
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 1 — THE CORE LOOP
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch1">
-    <div class="ch-num">Chapter 01</div>
-    <h2 class="ch-title">The Core Loop</h2>
-    <div class="ch-sub">
-      Every autonomous Claude Code session runs on one fundamental cycle. Everything else in this guide exists to make this loop faster, more reliable, and self-correcting.
-    </div>
-
-    <div class="section">
-      <div class="flow">
-        <div class="flow-step active">BUILD</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">VERIFY</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step red">FIX</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step green">VERIFY</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">COMMIT</div>
-      </div>
-
-      <div class="prose">
-        <strong>BUILD</strong> — Claude reads a task brief and writes the implementation. For complex tasks, it delegates to subagents.<br><br>
-        <strong>VERIFY</strong> — A verification script runs and returns structured JSON: every check is <code>pass: true</code> or <code>pass: false</code> with a human-readable detail string explaining what's wrong.<br><br>
-        <strong>FIX</strong> — Claude parses the JSON, identifies failing checks, and fixes each one. Maximum 5 attempts per individual check.<br><br>
-        <strong>VERIFY (again)</strong> — Re-run verification until all checks pass or the iteration limit is hit.<br><br>
-        <strong>COMMIT</strong> — Once all checks pass, stage changes and commit with a descriptive message. Update the progress file.
-      </div>
-
-      <div class="callout">
-        <p><strong>Why this works:</strong> The key insight is that the verification output is <em>machine-readable</em>. Claude doesn't need to interpret log files or guess what went wrong — the JSON tells it exactly which check failed and why. This turns debugging from a creative task into a mechanical one.</p>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">The Iteration Cap</div>
-      <div class="prose">
-        Five attempts per failing check is the sweet spot. Below that, you give up too early on solvable issues. Above that, you're burning tokens on something that probably needs human input. If a check fails 5 times, mark it as <strong>BLOCKED</strong> in the progress file with full error context, then move on. Don't let one stuck check halt the entire pipeline.
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 2 — PROJECT ANATOMY
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch2">
-    <div class="ch-num">Chapter 02</div>
-    <h2 class="ch-title">Project Anatomy</h2>
-    <div class="ch-sub">
-      The file structure that makes autonomous execution possible. Every file has a specific role in the feedback loop.
-    </div>
-
-    <div class="section">
-      <div class="file-tree"><span class="dir">your-project/</span>
-├── <span class="important">CLAUDE.md</span>              <span class="desc">← bootstrap: Claude reads this first, always</span>
-├── <span class="important">PROGRESS.md</span>            <span class="desc">← state: cross-session memory file</span>
-├── <span class="dir">.claude/</span>
-│   ├── <span class="file">settings.json</span>       <span class="desc">← pre-approved shell commands</span>
-│   └── <span class="dir">commands/</span>
-│       ├── <span class="file">build-all.md</span>    <span class="desc">← /build-all slash command</span>
-│       ├── <span class="file">build-step.md</span>   <span class="desc">← /build-step N slash command</span>
-│       ├── <span class="file">verify.md</span>       <span class="desc">← /verify N slash command</span>
-│       └── <span class="file">resume.md</span>       <span class="desc">← /resume slash command</span>
-├── <span class="dir">docs/tasks/</span>
-│   ├── <span class="file">task-01-*.md</span>        <span class="desc">← self-contained brief for step 1</span>
-│   ├── <span class="file">task-02-*.md</span>        <span class="desc">← self-contained brief for step 2</span>
-│   └── <span class="file">...</span>                 <span class="desc">← one brief per build step</span>
-├── <span class="dir">scripts/verify/</span>
-│   ├── <span class="file">verify-step-01.sh</span>   <span class="desc">← machine-readable verification for step 1</span>
-│   ├── <span class="file">verify-step-02.sh</span>   <span class="desc">← machine-readable verification for step 2</span>
-│   ├── <span class="file">...</span>
-│   └── <span class="file">verify-all.sh</span>       <span class="desc">← master runner: all steps sequentially</span>
-├── <span class="dir">src/</span>                      <span class="desc">← your actual source code</span>
-└── <span class="dir">tests/</span>                    <span class="desc">← test suite</span></div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Why Each Part Matters</div>
-      <div class="prose">
-        <strong>CLAUDE.md</strong> is the bootstrap. Claude Code reads it automatically when entering the project directory. It defines what the project is, the code style rules, and the autonomous execution protocol. Without it, every session starts from scratch.<br><br>
-        <strong>PROGRESS.md</strong> is the memory. It tracks which steps are complete, which are blocked, and what happened in each session. Claude reads it at the start of every session and writes to it at the end. This is how state persists across context window resets.<br><br>
-        <strong>Task briefs</strong> are the delegation units. Each brief is self-contained — a subagent can read one brief and have everything it needs to build that step without reading any other file in the project.<br><br>
-        <strong>Verification scripts</strong> are the feedback mechanism. They close the loop by telling Claude exactly what's working and what isn't, in a format it can parse and act on programmatically.
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 3 — CLAUDE.MD
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch3">
-    <div class="ch-num">Chapter 03</div>
-    <h2 class="ch-title">CLAUDE.md — The Bootstrap File</h2>
-    <div class="ch-sub">
-      The single most important file in any autonomous Claude Code project. It's read automatically on session start and defines the entire execution contract.
-    </div>
-
-    <div class="section">
-      <div class="section-label">What to Include</div>
-
-      <div class="principle">
-        <div class="principle-num">1</div>
-        <div>
-          <div class="principle-title">Project identity</div>
-          <div class="principle-body">One paragraph on what the project is. Not a marketing pitch — a technical description that tells Claude what it's building and for what platform/runtime.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">2</div>
-        <div>
-          <div class="principle-title">Hard constraints</div>
-          <div class="principle-body">The non-negotiable rules. "No frameworks in the UI." "TypeScript strict mode." "Dark mode only." "No semicolons." These are the rails that prevent Claude from drifting into default patterns that don't match your project.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">3</div>
-        <div>
-          <div class="principle-title">Code style</div>
-          <div class="principle-body">Be specific: const vs let, semicolons or not, error handling conventions, comment philosophy ("explain why, not what"). Claude will match whatever style you document — but only if you document it.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">4</div>
-        <div>
-          <div class="principle-title">Build order</div>
-          <div class="principle-body">A numbered sequence of build steps, each with a brief description and a pointer to its task brief in docs/tasks/. This is the execution plan Claude follows.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">5</div>
-        <div>
-          <div class="principle-title">The autonomous protocol</div>
-          <div class="principle-body">Document the BUILD → VERIFY → FIX → VERIFY loop explicitly. Tell Claude where verification scripts are, what format they output, how many fix iterations to attempt, and how to update PROGRESS.md. Don't assume it knows — spell it out.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">6</div>
-        <div>
-          <div class="principle-title">What NOT to build</div>
-          <div class="principle-body">An explicit out-of-scope list prevents Claude from gold-plating. Without it, it may add features that seem logical but aren't wanted.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Example Structure</div>
-      <details class="code-details">
-        <summary>View — CLAUDE.md skeleton</summary>
-        <div class="code-block"><span class="cm"># Project Name</span>
-
-<span class="cm">## What this is</span>
-<span class="file">One paragraph. Technical description. Platform, runtime, purpose.</span>
-
-<span class="cm">## Critical design decisions (do not deviate)</span>
-<span class="file">- Hard constraint 1</span>
-<span class="file">- Hard constraint 2</span>
-<span class="file">- Hard constraint 3</span>
-
-<span class="cm">## Code style</span>
-<span class="file">- TypeScript strict, no semicolons, const over let</span>
-<span class="file">- Error handling: always catch, always log, never crash</span>
-<span class="file">- Comments: explain WHY, not WHAT</span>
-
-<span class="cm">## Build order</span>
-<span class="file">Step 1: Scaffold → docs/tasks/task-01-scaffold.md</span>
-<span class="file">Step 2: Core logic → docs/tasks/task-02-core.md</span>
-<span class="file">...</span>
-
-<span class="cm">## Autonomous build protocol</span>
-<span class="file">1. Read task brief from docs/tasks/task-0N-*.md</span>
-<span class="file">2. Build the implementation</span>
-<span class="file">3. Run bash scripts/verify/verify-step-0N.sh</span>
-<span class="file">4. Parse JSON output — fix each failing check</span>
-<span class="file">5. Re-verify (max 5 iterations per check)</span>
-<span class="file">6. Update PROGRESS.md</span>
-<span class="file">7. Commit</span>
-
-<span class="cm">## What NOT to build</span>
-<span class="file">- Feature X (deferred to Phase 2)</span>
-<span class="file">- Feature Y (out of scope)</span></div>
-      </details>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 4 — MACHINE-READABLE VERIFICATION
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch4">
-    <div class="ch-num">Chapter 04</div>
-    <h2 class="ch-title">Machine-Readable Verification</h2>
-    <div class="ch-sub">
-      The innovation that makes the recursive loop work. Verification scripts that output structured JSON instead of prose — so Claude can parse failures and fix them programmatically.
-    </div>
-
-    <div class="section">
-      <div class="section-label">Output Format</div>
-      <div class="code-block">{
-  <span class="str">"step"</span>: <span class="num">3</span>,
-  <span class="str">"name"</span>: <span class="str">"claude-adapter"</span>,
-  <span class="str">"total"</span>: <span class="num">12</span>,
-  <span class="str">"passed"</span>: <span class="num">10</span>,
-  <span class="str">"failed"</span>: <span class="num">2</span>,
-  <span class="str">"checks"</span>: [
-    { <span class="str">"check"</span>: <span class="str">"sse_parser_exists"</span>, <span class="str">"pass"</span>: <span class="kw">true</span>, <span class="str">"detail"</span>: <span class="str">"SSE parser found in claude-inject.ts"</span> },
-    { <span class="str">"check"</span>: <span class="str">"dedup_cache"</span>, <span class="str">"pass"</span>: <span class="kw">false</span>, <span class="str">"detail"</span>: <span class="str">"No SHA-256 hashing found for deduplication"</span> },
-    { <span class="str">"check"</span>: <span class="str">"typescript_clean"</span>, <span class="str">"pass"</span>: <span class="kw">false</span>, <span class="str">"detail"</span>: <span class="str">"2 type errors in claude-inject.ts lines 45, 112"</span> }
-  ]
-}</div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Writing Effective Checks</div>
-      <div class="prose">
-        Each check tests one specific thing. The <code>detail</code> field is the key — it must tell Claude <em>exactly</em> what's wrong and where to look. Vague details like "test failed" force Claude to investigate. Specific details like "No SHA-256 hashing found for deduplication in claude-inject.ts" let Claude go straight to the fix.
-      </div>
-
-      <details class="code-details">
-        <summary>View — Bash verification pattern</summary>
-        <div class="code-block"><span class="cm">#!/bin/bash</span>
-<span class="cm"># verify-step-03.sh — Claude adapter verification</span>
-
-<span class="kw">CHECKS</span>=<span class="str">"[]"</span>
-<span class="kw">PASS_COUNT</span>=<span class="num">0</span>
-<span class="kw">FAIL_COUNT</span>=<span class="num">0</span>
-
-<span class="fn">check</span>() {
-  <span class="kw">local</span> name=<span class="str">"$1"</span> pass=<span class="str">"$2"</span> detail=<span class="str">"$3"</span>
-  <span class="kw">if</span> [ <span class="str">"$pass"</span> = <span class="str">"true"</span> ]; <span class="kw">then</span>
-    PASS_COUNT=$((PASS_COUNT + 1))
-  <span class="kw">else</span>
-    FAIL_COUNT=$((FAIL_COUNT + 1))
-  <span class="kw">fi</span>
-  CHECKS=$(echo <span class="str">"$CHECKS"</span> | jq <span class="str">". + [{\"check\":\"$name\",\"pass\":$pass,\"detail\":\"$detail\"}]"</span>)
-}
-
-<span class="cm"># File existence</span>
-[ -f <span class="str">"src/adapters/claude-inject.ts"</span> ] \
-  && check <span class="str">"inject_exists"</span> <span class="str">"true"</span> <span class="str">"Page inject script found"</span> \
-  || check <span class="str">"inject_exists"</span> <span class="str">"false"</span> <span class="str">"Missing src/adapters/claude-inject.ts"</span>
-
-<span class="cm"># Pattern matching</span>
-grep -q <span class="str">"SHA-256\|crypto.subtle.digest"</span> src/adapters/claude-inject.ts \
-  && check <span class="str">"dedup_hash"</span> <span class="str">"true"</span> <span class="str">"Content hashing found"</span> \
-  || check <span class="str">"dedup_hash"</span> <span class="str">"false"</span> <span class="str">"No SHA-256 hashing in claude-inject.ts"</span>
-
-<span class="cm"># TypeScript compilation</span>
-TSC_OUT=$(npx tsc --noEmit 2>&1)
-<span class="kw">if</span> [ $? -eq 0 ]; <span class="kw">then</span>
-  check <span class="str">"typescript_clean"</span> <span class="str">"true"</span> <span class="str">"Zero type errors"</span>
-<span class="kw">else</span>
-  ERR=$(echo <span class="str">"$TSC_OUT"</span> | head -3 | tr <span class="str">'\n'</span> <span class="str">' '</span>)
-  check <span class="str">"typescript_clean"</span> <span class="str">"false"</span> <span class="str">"$ERR"</span>
-<span class="kw">fi</span>
-
-<span class="cm"># Output final JSON</span>
-echo <span class="str">"{\"step\":3,\"name\":\"claude-adapter\",\"total\":$((PASS_COUNT+FAIL_COUNT)),\"passed\":$PASS_COUNT,\"failed\":$FAIL_COUNT,\"checks\":$CHECKS}"</span></div>
-      </details>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Check Categories</div>
-      <div class="prose">
-        Build a verification script with checks at multiple levels: <strong>file existence</strong> (does the code exist?), <strong>pattern matching</strong> (does it contain the required implementations?), <strong>compilation</strong> (does TypeScript accept it?), <strong>tests</strong> (do the test suites pass?), and <strong>behavioral</strong> (does it do what it's supposed to?). The first two categories catch most issues fast. The last one catches subtle bugs.
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 5 — TASK BRIEFS & SUBAGENT DELEGATION
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch5">
-    <div class="ch-num">Chapter 05</div>
-    <h2 class="ch-title">Task Briefs & Subagent Delegation</h2>
-    <div class="ch-sub">
-      The orchestrator/worker pattern. The main Claude Code session manages state and verification. Subagents do the actual coding. Task briefs are the interface between them.
-    </div>
-
-    <div class="section">
-      <div class="section-label">The Orchestrator Pattern</div>
-      <div class="flow">
-        <div class="flow-step active">Orchestrator</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">reads PROGRESS.md</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">delegates to subagent</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">runs verification</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step green">updates state</div>
-      </div>
-      <div class="prose">
-        The orchestrator never writes application code itself. It reads state, decides what to build next, spins up a subagent with the task brief, and then verifies the result. This separation matters because subagents get a fresh context window — they can focus entirely on the implementation without carrying the overhead of project-level state management.
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">What Makes a Good Task Brief</div>
-
-      <div class="principle">
-        <div class="principle-num">1</div>
-        <div>
-          <div class="principle-title">Self-contained</div>
-          <div class="principle-body">The subagent should be able to read ONLY this brief and have everything it needs. Inline the relevant type definitions, API contracts, and file paths. Don't say "see the schema doc" — paste the relevant interfaces directly into the brief.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">2</div>
-        <div>
-          <div class="principle-title">Exact file paths</div>
-          <div class="principle-body">Tell the subagent exactly which files to create or modify. Don't leave directory structure decisions to the subagent — that's an orchestrator decision.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">3</div>
-        <div>
-          <div class="principle-title">Verification criteria inline</div>
-          <div class="principle-body">Include what "done" means within the brief itself. "The adapter must: intercept fetch calls, parse SSE streams, deduplicate via SHA-256, and pass npx tsc --noEmit." The subagent should know if it succeeded before the orchestrator even runs verification.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">4</div>
-        <div>
-          <div class="principle-title">Constraints repeated</div>
-          <div class="principle-body">Always append the code style and hard constraints to every brief. Subagents don't read CLAUDE.md. They only see what you give them. If you don't say "no semicolons," they'll add semicolons.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Delegation Template</div>
-      <details class="code-details">
-        <summary>View — Subagent prompt pattern</summary>
-        <div class="code-block"><span class="cm">Delegate to subagent with this brief:</span>
-
-<span class="str">"Build [component name] for [project name].</span>
-
-<span class="str">## What to build</span>
-<span class="str">[Exact description of the component]</span>
-
-<span class="str">## Files to create/modify</span>
-<span class="str">- Create: src/path/to/new-file.ts</span>
-<span class="str">- Modify: src/path/to/existing-file.ts (add X to Y)</span>
-
-<span class="str">## Interfaces (inlined from schema)</span>
-<span class="str">[Paste the relevant TypeScript interfaces here]</span>
-
-<span class="str">## Acceptance criteria</span>
-<span class="str">- [ ] Criterion 1</span>
-<span class="str">- [ ] Criterion 2</span>
-<span class="str">- [ ] npx tsc --noEmit exits clean</span>
-<span class="str">- [ ] npm test passes</span>
-
-<span class="str">## Constraints</span>
-<span class="str">Code style: no semicolons, TypeScript strict, const over let, never var.</span>
-<span class="str">[Any other hard constraints from CLAUDE.md]"</span></div>
-      </details>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 6 — CUSTOM SLASH COMMANDS
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch6">
-    <div class="ch-num">Chapter 06</div>
-    <h2 class="ch-title">Custom Slash Commands</h2>
-    <div class="ch-sub">
-      Markdown files in <code>.claude/commands/</code> become slash commands. They're the user interface for your autonomous build system.
-    </div>
-
-    <div class="section">
-      <div class="section-label">The Four Essential Commands</div>
-
-      <div class="card">
-        <div class="card-label">command</div>
-        <div class="card-title">/build-all</div>
-        <div class="card-body">
-          The "press start and walk away" command. Reads PROGRESS.md, finds the first non-PASSED step, and executes the full build loop for every remaining step. Delegates each step to a subagent, runs verification, fixes failures, updates progress, commits. Stops only when all steps pass or a step is BLOCKED.
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">command</div>
-        <div class="card-title">/build-step N</div>
-        <div class="card-body">
-          Builds a single step. Same loop as /build-all but scoped to one step. Useful for iterating on a specific component without touching anything else. Checks that prerequisite steps are PASSED before starting.
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">command</div>
-        <div class="card-title">/verify N</div>
-        <div class="card-body">
-          Runs verification for step N (or "all" for every step). Doesn't build anything — just checks the current state. Use this to confirm a step is still passing after unrelated changes, or to get a quick status check.
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">command</div>
-        <div class="card-title">/resume</div>
-        <div class="card-body">
-          The session-start command. Reads PROGRESS.md, identifies where work left off, runs a regression check on the last passed step, then continues. This is how you bridge sessions — the new Claude picks up exactly where the last one stopped.
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Pre-Approved Permissions</div>
-      <div class="prose">
-        The <code>.claude/settings.json</code> file pre-approves shell commands so Claude doesn't pause for permission on every <code>npm test</code> or <code>bash scripts/verify/...</code>. Without this, autonomous execution breaks every time Claude needs to run a command.
-      </div>
-      <details class="code-details">
-        <summary>View — settings.json</summary>
-        <div class="code-block">{
-  <span class="str">"permissions"</span>: {
-    <span class="str">"allow"</span>: [
-      <span class="str">"Bash(npm *)"</span>, <span class="str">"Bash(npx *)"</span>, <span class="str">"Bash(node *)"</span>,
-      <span class="str">"Bash(git *)"</span>, <span class="str">"Bash(bash scripts/*)"</span>,
-      <span class="str">"Bash(cat *)"</span>, <span class="str">"Bash(ls *)"</span>, <span class="str">"Bash(find *)"</span>,
-      <span class="str">"Bash(mkdir *)"</span>, <span class="str">"Bash(cp *)"</span>, <span class="str">"Bash(rm *)"</span>,
-      <span class="str">"Bash(grep *)"</span>, <span class="str">"Bash(head *)"</span>, <span class="str">"Bash(tail *)"</span>,
-      <span class="str">"Bash(wc *)"</span>, <span class="str">"Bash(tsc *)"</span>
-    ]
-  }
-}</div>
-      </details>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 7 — CROSS-SESSION STATE
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch7">
-    <div class="ch-num">Chapter 07</div>
-    <h2 class="ch-title">Cross-Session State</h2>
-    <div class="ch-sub">
-      Claude Code sessions have finite context windows. PROGRESS.md is the file that makes state persist across sessions so each new Claude picks up where the last left off.
-    </div>
-
-    <div class="section">
-      <div class="section-label">PROGRESS.md Structure</div>
-      <div class="prose">
-        The file has four sections, each serving a specific purpose:
-      </div>
-
-      <div class="card">
-        <div class="card-title">Step Status Table</div>
-        <div class="card-body">A markdown table with one row per build step: step number, name, status (NOT_STARTED / IN_PROGRESS / PASSED / BLOCKED), check counts, timestamp, and notes. Claude reads this first to know where things stand.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Current State Section</div>
-        <div class="card-body">A snapshot of build health right now: TypeScript errors, test counts, build status, known environment issues. Updated every session.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Blockers Section</div>
-        <div class="card-body">Any check that failed 5 times gets logged here with full error context. The next session's Claude can either solve it with fresh perspective or escalate to the human.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Session Log</div>
-        <div class="card-body">Chronological entries: what was done, what was fixed, what decisions were made. Each entry has a date and a brief summary. This is the audit trail.</div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="callout">
-        <p><strong>Critical rule:</strong> Always read PROGRESS.md at session start. Always write to it at session end. If you skip the write, the next session loses everything this session accomplished.</p>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 8 — QUALITY GATES
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch8">
-    <div class="ch-num">Chapter 08</div>
-    <h2 class="ch-title">Quality Gates</h2>
-    <div class="ch-sub">
-      Verification scripts catch structural issues. Quality gates catch everything else — security flaws, performance problems, accessibility failures, and architectural missteps.
-    </div>
-
-    <div class="section">
-      <div class="section-label">Gate Schedule</div>
-      <div class="prose">
-        Wire quality gates into specific steps where they matter most. Don't run every gate on every step — that wastes tokens. Match the gate to the type of work:
-      </div>
-
-      <div class="card">
-        <div class="card-title">/review — After every step</div>
-        <div class="card-body">Run a code review on the diff before committing. Catches bugs, security flaws, and maintainability issues that verification scripts miss because they only check structure, not logic.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">/accessibility — After UI steps</div>
-        <div class="card-body">WCAG 2.1 AA compliance check. Run on any step that produces HTML. Catches contrast ratio failures, missing ARIA attributes, keyboard navigation gaps.</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">/architecture — After integration steps</div>
-        <div class="card-body">Generate an Architecture Decision Record (ADR) for significant design choices. Especially valuable when the step involves choosing between multiple approaches (which database, which protocol, which API pattern).</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">/testing-strategy — After test steps</div>
-        <div class="card-body">Validate that test coverage follows the testing pyramid: mostly unit tests, some integration tests, few end-to-end tests. Catches the common mistake of writing only happy-path tests.</div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 9 — SESSION MANAGEMENT
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch9">
-    <div class="ch-num">Chapter 09</div>
-    <h2 class="ch-title">Session Management</h2>
-    <div class="ch-sub">
-      How to start, run, and end Claude Code sessions for maximum effectiveness with minimum wasted context.
-    </div>
-
-    <div class="section">
-      <div class="section-label">Starting a Session</div>
-
-      <div class="compare">
-        <div class="compare-card bad">
-          <div class="compare-label">Wasteful</div>
-          <div class="compare-body">"Retrieve all your memory about this project and summarize what we've done so far before starting any work."<br><br>Burns 20-40% of context on a memory dump that may not be relevant to today's task.</div>
-        </div>
-        <div class="compare-card good">
-          <div class="compare-label">Effective</div>
-          <div class="compare-body">"Run /resume" or "Run the production readiness prompt in docs/tasks/production-readiness-prompt.md"<br><br>CLAUDE.md loads automatically. PROGRESS.md has the state. Claude pulls only the context it needs for the specific task.</div>
-        </div>
-      </div>
-
-      <div class="prose">
-        <strong>The rule:</strong> If CLAUDE.md and PROGRESS.md can orient the session, just state your intent. Only front-load context retrieval when the relevant decisions live in your memory systems (past conversations, external docs) and not in the repo.
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">During a Session</div>
-      <div class="prose">
-        Let Claude work. The autonomous loop is designed to run without intervention. Check in on PROGRESS.md periodically if you want to see status, but don't interrupt the loop unless something is actually wrong. Each interruption costs context — Claude has to re-orient after every user message.
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Ending a Session</div>
-      <div class="prose">
-        If the session runs out of context or you need to stop it, the last thing to verify is that PROGRESS.md has been updated. If it hasn't, ask Claude to update it before closing. The next session depends entirely on that file being accurate.
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 10 — CONTEXT WINDOW ECONOMICS
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch10">
-    <div class="ch-num">Chapter 10</div>
-    <h2 class="ch-title">Context Window Economics</h2>
-    <div class="ch-sub">
-      Every token in the context window is a finite resource. The patterns in this guide are designed to maximize useful work per token spent.
-    </div>
-
-    <div class="section">
-      <div class="section-label">Where Tokens Go</div>
-      <div class="prose">
-        In an autonomous build session, tokens distribute roughly like this: <strong>~15%</strong> on reading state and task briefs, <strong>~50%</strong> on code generation, <strong>~20%</strong> on verification and fix loops, <strong>~15%</strong> on state management and commits. The fix loop is where waste happens — if verification is vague, Claude spends tokens investigating instead of fixing.
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Cost-Saving Patterns</div>
-
-      <div class="principle">
-        <div class="principle-num">1</div>
-        <div>
-          <div class="principle-title">Self-contained task briefs eliminate re-reading</div>
-          <div class="principle-body">If the subagent has to read 5 files to understand its task, that's 5× the context cost. A single brief that inlines everything means one read.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">2</div>
-        <div>
-          <div class="principle-title">Specific verification details eliminate investigation</div>
-          <div class="principle-body">"No SHA-256 hashing found in claude-inject.ts" → Claude adds SHA-256 hashing. "Test failed" → Claude has to read logs, find the failing test, understand the error, then fix. The second path costs 5-10× more tokens.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">3</div>
-        <div>
-          <div class="principle-title">Subagent delegation amortizes context</div>
-          <div class="principle-body">The orchestrator maintains project-level state in a long-lived context. Subagents get fresh windows focused on single tasks. This prevents the orchestrator's context from filling up with implementation details it doesn't need to retain.</div>
-        </div>
-      </div>
-
-      <div class="principle">
-        <div class="principle-num">4</div>
-        <div>
-          <div class="principle-title">Pre-approved commands eliminate round-trips</div>
-          <div class="principle-body">Every permission prompt costs a message round-trip. Pre-approving common commands in settings.json lets Claude run npm, tsc, git, and verification scripts without stopping.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 11 — ANTI-PATTERNS
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch11">
-    <div class="ch-num">Chapter 11</div>
-    <h2 class="ch-title">Anti-Patterns</h2>
-    <div class="ch-sub">
-      Common mistakes that degrade autonomous execution quality. Each one was discovered the hard way.
-    </div>
-
-    <div class="section">
-      <div class="compare">
-        <div class="compare-card bad">
-          <div class="compare-label">Prose verification</div>
-          <div class="compare-body">"Check that the adapter works correctly and handles edge cases." Claude has to interpret what "works correctly" means. Different sessions interpret it differently. No reproducibility.</div>
-        </div>
-        <div class="compare-card good">
-          <div class="compare-label">JSON verification</div>
-          <div class="compare-body">20 specific pass/fail checks with detail strings. Same result every run. Claude can parse and act on failures without interpretation.</div>
-        </div>
-      </div>
-
-      <div class="compare">
-        <div class="compare-card bad">
-          <div class="compare-label">Monolithic sessions</div>
-          <div class="compare-body">"Build the entire app in one session." Context fills up. Quality degrades. If the session crashes, everything is lost unless PROGRESS.md was being updated.</div>
-        </div>
-        <div class="compare-card good">
-          <div class="compare-label">Step-by-step with commits</div>
-          <div class="compare-body">Each step is verified and committed independently. If a session dies mid-step, the completed steps are preserved. The next session resumes cleanly.</div>
-        </div>
-      </div>
-
-      <div class="compare">
-        <div class="compare-card bad">
-          <div class="compare-label">Orchestrator writes code</div>
-          <div class="compare-body">The main session writes implementation code AND manages state. Its context fills with code details, leaving less room for orchestration decisions and fix iterations.</div>
-        </div>
-        <div class="compare-card good">
-          <div class="compare-label">Orchestrator delegates</div>
-          <div class="compare-body">Main session only manages state and verification. Subagents write code in fresh contexts. The orchestrator stays lean and can run more fix iterations.</div>
-        </div>
-      </div>
-
-      <div class="compare">
-        <div class="compare-card bad">
-          <div class="compare-label">Memory dump on session start</div>
-          <div class="compare-body">"Tell me everything you know about this project." Wastes 20-40% of context on potentially irrelevant history before any work begins.</div>
-        </div>
-        <div class="compare-card good">
-          <div class="compare-label">Intent-first session start</div>
-          <div class="compare-body">"Run /resume" or state the specific task. Claude reads CLAUDE.md and PROGRESS.md automatically — it pulls only the context needed for the actual work.</div>
-        </div>
-      </div>
-
-      <div class="compare">
-        <div class="compare-card bad">
-          <div class="compare-label">Infinite fix loops</div>
-          <div class="compare-body">No iteration cap on failing checks. Claude tries the same fix 20 times, burning the entire context window on one stubborn issue.</div>
-        </div>
-        <div class="compare-card good">
-          <div class="compare-label">5-iteration cap with BLOCKED</div>
-          <div class="compare-body">After 5 attempts, mark as BLOCKED with full context in PROGRESS.md. Move on. A fresh session (or human) can solve it with new perspective.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════
-       CHAPTER 12 — QUICK REFERENCE
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="chapter" id="ch12">
-    <div class="ch-num">Chapter 12</div>
-    <h2 class="ch-title">Quick Reference</h2>
-    <div class="ch-sub">
-      The condensed version. Everything on one screen.
-    </div>
-
-    <div class="section">
-      <div class="section-label">Setup Checklist</div>
-      <div class="code-block"><span class="cm"># 1. Create the bootstrap file</span>
-<span class="file">CLAUDE.md</span>       <span class="cm">— project identity, constraints, code style, build order, protocol</span>
-
-<span class="cm"># 2. Create the state file</span>
-<span class="file">PROGRESS.md</span>    <span class="cm">— step table (all NOT_STARTED), blockers (empty), session log (empty)</span>
-
-<span class="cm"># 3. Pre-approve commands</span>
-<span class="file">.claude/settings.json</span>  <span class="cm">— npm, npx, git, bash scripts/*</span>
-
-<span class="cm"># 4. Write slash commands</span>
-<span class="file">.claude/commands/build-all.md</span>    <span class="cm">— full autonomous execution</span>
-<span class="file">.claude/commands/build-step.md</span>   <span class="cm">— single step execution</span>
-<span class="file">.claude/commands/verify.md</span>       <span class="cm">— verification only</span>
-<span class="file">.claude/commands/resume.md</span>       <span class="cm">— cross-session resume</span>
-
-<span class="cm"># 5. Write task briefs (one per build step)</span>
-<span class="file">docs/tasks/task-01-*.md</span>  <span class="cm">— self-contained, inlined schemas, acceptance criteria</span>
-<span class="file">docs/tasks/task-02-*.md</span>
-<span class="file">...</span>
-
-<span class="cm"># 6. Write verification scripts (one per build step)</span>
-<span class="file">scripts/verify/verify-step-01.sh</span>  <span class="cm">— JSON output, specific detail strings</span>
-<span class="file">scripts/verify/verify-step-02.sh</span>
-<span class="file">...</span>
-<span class="file">scripts/verify/verify-all.sh</span>      <span class="cm">— runs all, stops at first failure</span></div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">The Loop (Memorize This)</div>
-      <div class="flow">
-        <div class="flow-step">Read brief</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step active">Delegate</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">Verify (JSON)</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step red">Fix (≤5×)</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">/review</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step green">Commit</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">PROGRESS.md</div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Session Lifecycle</div>
-      <div class="code-block"><span class="cm"># Start</span>
-<span class="fn">/resume</span>                   <span class="cm">← reads PROGRESS.md, continues from last state</span>
-
-<span class="cm"># Or: fresh build</span>
-<span class="fn">/build-all</span>                <span class="cm">← builds everything from first incomplete step</span>
-
-<span class="cm"># Or: specific task</span>
-<span class="str">"Run the prompt in docs/tasks/production-readiness-prompt.md"</span>
-
-<span class="cm"># During: don't interrupt unless something is wrong</span>
-
-<span class="cm"># End: verify PROGRESS.md is updated</span></div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Golden Rules</div>
-
-      <div class="callout">
-        <p><strong>1.</strong> CLAUDE.md is the bootstrap. PROGRESS.md is the memory. Verification scripts are the feedback. Task briefs are the delegation interface. Everything else is implementation detail.</p>
-      </div>
-      <div class="callout">
-        <p><strong>2.</strong> The orchestrator manages state. Subagents write code. Never blur these roles.</p>
-      </div>
-      <div class="callout">
-        <p><strong>3.</strong> Machine-readable verification is the single most important investment. Every hour spent writing specific checks saves ten hours of Claude debugging vague failures.</p>
-      </div>
-      <div class="callout">
-        <p><strong>4.</strong> State your intent on session start. Let CLAUDE.md and PROGRESS.md provide the context. Don't front-load with memory dumps.</p>
-      </div>
-      <div class="callout">
-        <p><strong>5.</strong> Five fix attempts, then BLOCKED. Never let one issue consume the whole session.</p>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══ FOOTER ═══ -->
-  <footer style="padding-top: 48px; border-top: 1px solid var(--border-subtle); text-align: center;">
-    <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-ghost);">
-      Derived from Sovereign Mind · Built with Claude · 2026
-    </div>
+  <footer class="footer">
+    <div class="footer-text">Open Source · MIT</div>
+    <a class="footer-link" href="https://github.com/Riley-Coyote/claude-code-guide" target="_blank" rel="noopener">GitHub ↗</a>
   </footer>
 
-</div>
-
-<!-- ═══ SMOOTH SCROLL ═══ -->
-<script>
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault()
-    const target = document.querySelector(a.getAttribute('href'))
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  })
-})
-</script>
+</main>
 </body>
 </html>
