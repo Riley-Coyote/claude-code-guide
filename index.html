@@ -14,14 +14,12 @@
   --bg-elevated:   #1c1c1c;
   --bg-overlay:    #202020;
   --bg-inset:      #111111;
-  --bg-glass:      rgba(20, 20, 20, 0.85);
 
   --ink:            rgba(255, 255, 255, 0.92);
   --text-primary:   rgba(255, 255, 255, 0.87);
   --text-secondary: rgba(255, 255, 255, 0.60);
   --text-tertiary:  rgba(255, 255, 255, 0.32);
   --text-ghost:     rgba(255, 255, 255, 0.14);
-  --text-invisible: rgba(255, 255, 255, 0.07);
 
   --type-xs:   10px;
   --type-sm:   12px;
@@ -49,24 +47,13 @@
   --weight-normal:   400;
   --weight-medium:   450;
   --weight-semibold: 540;
-  --weight-bold:     620;
 
   --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-premium:  cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-settle:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --dur-micro:   120ms;
   --dur-fast:    180ms;
   --dur-normal:  300ms;
-  --dur-settle:  320ms;
-  --dur-slow:    500ms;
 
   --border:        rgba(255, 255, 255, 0.06);
   --border-subtle: rgba(255, 255, 255, 0.03);
-  --border-focus:  rgba(255, 255, 255, 0.16);
-
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.20);
 
   --radius-sm:   6px;
   --radius-md:   10px;
@@ -74,12 +61,17 @@
   --radius-xl:   20px;
 
   --green:      #4ade80;
-  --amber:      #fbbf24;
+  --green-soft: rgba(74, 222, 128, 0.08);
   --blue:       #60a5fa;
+  --blue-soft:  rgba(96, 165, 250, 0.08);
   --purple:     #a78bfa;
+  --purple-soft: rgba(167, 139, 250, 0.08);
 
   --font-sans: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
   --font-mono: 'SF Mono', 'Geist Mono', 'JetBrains Mono', monospace;
+
+  --state-hover-bg:     rgba(255, 255, 255, 0.04);
+  --state-hover-border: rgba(255, 255, 255, 0.10);
 }
 
 body {
@@ -100,7 +92,7 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.10); }
 
 .page {
-  max-width: 820px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 120px 40px 120px;
 }
@@ -134,7 +126,7 @@ body {
   font-size: var(--type-md);
   color: var(--text-secondary);
   line-height: 1.6;
-  max-width: 620px;
+  max-width: 680px;
 }
 
 .section-label {
@@ -147,14 +139,46 @@ body {
   margin-bottom: var(--space-6);
 }
 
-.guides {
+/* ── Phase flow indicator ── */
+.phase-flow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-12);
+  flex-wrap: wrap;
+}
+.phase-flow-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.phase-flow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.phase-flow-dot.green { background: var(--green); }
+.phase-flow-dot.blue { background: var(--blue); }
+.phase-flow-dot.purple { background: var(--purple); }
+.phase-flow-arrow {
+  color: var(--text-ghost);
+  font-size: var(--type-sm);
+}
+
+/* ── Phase cards ── */
+.phases {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
   margin-bottom: var(--space-20);
 }
 
-.guide-card {
+.phase-card {
   display: block;
   background: var(--bg-raised);
   border: 1px solid var(--border);
@@ -169,7 +193,21 @@ body {
   overflow: hidden;
 }
 
-.guide-card::after {
+.phase-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  opacity: 0;
+  transition: opacity var(--dur-normal) var(--ease-out);
+}
+.phase-card.ideate::before { background: var(--green); }
+.phase-card.cowork::before { background: var(--blue); }
+.phase-card.build::before { background: var(--purple); }
+
+.phase-card::after {
   content: '→';
   position: absolute;
   top: var(--space-8);
@@ -180,45 +218,43 @@ body {
               transform var(--dur-normal) var(--ease-out);
 }
 
-.guide-card:hover {
+.phase-card:hover {
   background: var(--bg-elevated);
-  border-color: var(--state-hover-border, rgba(255, 255, 255, 0.10));
+  border-color: var(--state-hover-border);
 }
 
-.guide-card:hover::after {
+.phase-card:hover::before { opacity: 1; }
+.phase-card:hover::after {
   color: var(--ink);
   transform: translateX(4px);
 }
 
-.guide-card:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--bg-base), 0 0 0 4px rgba(255, 255, 255, 0.16);
-}
-
-.guide-meta {
+.phase-meta {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   margin-bottom: var(--space-4);
 }
 
-.guide-index {
+.phase-index {
   font-family: var(--font-mono);
   font-size: var(--type-xs);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
 }
+.phase-card.ideate .phase-index { color: var(--green); }
+.phase-card.cowork .phase-index { color: var(--blue); }
+.phase-card.build .phase-index { color: var(--purple); }
 
-.guide-dot {
+.phase-dot {
   width: 3px;
   height: 3px;
   border-radius: 50%;
   background: var(--text-ghost);
 }
 
-.guide-tag {
+.phase-tag {
   font-family: var(--font-mono);
   font-size: var(--type-xs);
   font-weight: 500;
@@ -227,7 +263,7 @@ body {
   color: var(--text-tertiary);
 }
 
-.guide-title {
+.phase-title {
   font-size: var(--type-2xl);
   font-weight: var(--weight-light);
   letter-spacing: -0.015em;
@@ -237,15 +273,15 @@ body {
   padding-right: var(--space-10);
 }
 
-.guide-description {
+.phase-description {
   font-size: var(--type-base);
   color: var(--text-secondary);
   line-height: 1.65;
   margin-bottom: var(--space-5);
-  max-width: 600px;
+  max-width: 640px;
 }
 
-.guide-chapters {
+.phase-topics {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
@@ -254,7 +290,7 @@ body {
   border-top: 1px solid var(--border-subtle);
 }
 
-.chapter-chip {
+.topic-chip {
   font-family: var(--font-mono);
   font-size: var(--type-xs);
   font-weight: 400;
@@ -267,6 +303,7 @@ body {
   padding: 6px 10px;
 }
 
+/* ── Footer ── */
 .footer {
   padding-top: var(--space-12);
   border-top: 1px solid var(--border-subtle);
@@ -295,16 +332,16 @@ body {
   transition: color var(--dur-normal) var(--ease-out);
 }
 
-.footer-link:hover {
-  color: var(--ink);
-}
+.footer-link:hover { color: var(--ink); }
 
 @media (max-width: 640px) {
   .page { padding: 64px 24px 80px; }
   .page-title { font-size: var(--type-2xl); }
-  .guide-card { padding: var(--space-6); }
-  .guide-title { font-size: var(--type-xl); padding-right: var(--space-8); }
-  .guide-card::after { top: var(--space-6); right: var(--space-6); }
+  .phase-card { padding: var(--space-6); }
+  .phase-title { font-size: var(--type-xl); padding-right: var(--space-8); }
+  .phase-card::after { top: var(--space-6); right: var(--space-6); }
+  .phase-flow { gap: var(--space-2); }
+  .phase-flow-step { font-size: 9px; }
 }
 </style>
 </head>
@@ -313,44 +350,68 @@ body {
 
   <header class="page-header">
     <div class="page-label">The Claude Code Guide</div>
-    <h1 class="page-title">Mastering Claude Code.</h1>
-    <p class="page-subtitle">Two companion guides — one for the full journey from idea to shipped, one for the autonomous build systems that make it possible.</p>
+    <h1 class="page-title">From spark to shipped.</h1>
+    <p class="page-subtitle">Three phases. One journey. The complete guide to building with Claude Code — from brainstorming with Claude as a thinking partner, to setting up the rails, to handing off for autonomous execution.</p>
   </header>
 
-  <div class="section-label">Guides</div>
+  <div class="phase-flow">
+    <div class="phase-flow-step"><span class="phase-flow-dot green"></span>Ideate</div>
+    <span class="phase-flow-arrow">→</span>
+    <div class="phase-flow-step"><span class="phase-flow-dot blue"></span>Cowork &amp; Plan</div>
+    <span class="phase-flow-arrow">→</span>
+    <div class="phase-flow-step"><span class="phase-flow-dot purple"></span>Autonomous Build</div>
+  </div>
 
-  <nav class="guides">
+  <div class="section-label">The Three Phases</div>
 
-    <a class="guide-card" href="complete-build-flow.html">
-      <div class="guide-meta">
-        <span class="guide-index">Guide 01</span>
-        <span class="guide-dot"></span>
-        <span class="guide-tag">Narrative · Journey</span>
+  <nav class="phases">
+
+    <a class="phase-card ideate" href="01-ideate.html">
+      <div class="phase-meta">
+        <span class="phase-index">Phase 01</span>
+        <span class="phase-dot"></span>
+        <span class="phase-tag">Conversation · Thinking partner</span>
       </div>
-      <h2 class="guide-title">The Complete Build Flow</h2>
-      <p class="guide-description">From spark to shipped. The full three-phase journey: ideation with Claude as your thinking partner, autonomous code generation, then polish and hardening. Follow a real project from first idea to launch.</p>
-      <div class="guide-chapters">
-        <span class="chapter-chip">Spark</span>
-        <span class="chapter-chip">Code</span>
-        <span class="chapter-chip">Polish</span>
-        <span class="chapter-chip">26 Sections</span>
+      <h2 class="phase-title">Ideate with Claude</h2>
+      <p class="phase-description">Turn ideas into locked-down plans. The conversational phase where you and Claude shape what you're building — pick the stack, lock the design, define what "done" means. All before writing a single line of code.</p>
+      <div class="phase-topics">
+        <span class="topic-chip">The Spark</span>
+        <span class="topic-chip">Foundations</span>
+        <span class="topic-chip">Design Lock</span>
+        <span class="topic-chip">Thinking Partner</span>
       </div>
     </a>
 
-    <a class="guide-card" href="masterclass.html">
-      <div class="guide-meta">
-        <span class="guide-index">Guide 02</span>
-        <span class="guide-dot"></span>
-        <span class="guide-tag">Reference · Deep Dive</span>
+    <a class="phase-card cowork" href="02-cowork-plan.html">
+      <div class="phase-meta">
+        <span class="phase-index">Phase 02</span>
+        <span class="phase-dot"></span>
+        <span class="phase-tag">Collaboration · Setup</span>
       </div>
-      <h2 class="guide-title">Autonomous Build Systems</h2>
-      <p class="guide-description">The technical masterclass. The core loop, CLAUDE.md bootstrap, machine-readable verification, task briefs, subagent delegation, quality gates, context window economics, and the anti-patterns that sink autonomous builds.</p>
-      <div class="guide-chapters">
-        <span class="chapter-chip">Core Loop</span>
-        <span class="chapter-chip">Verification</span>
-        <span class="chapter-chip">Subagents</span>
-        <span class="chapter-chip">Quality Gates</span>
-        <span class="chapter-chip">12 Chapters</span>
+      <h2 class="phase-title">Cowork &amp; Plan</h2>
+      <p class="phase-description">Build the rails for autonomous execution. Sit at the keyboard with Claude Code to write CLAUDE.md, structure the project, define task briefs and verification, and wire up the slash commands that make Phase 03 run on autopilot.</p>
+      <div class="phase-topics">
+        <span class="topic-chip">Project Anatomy</span>
+        <span class="topic-chip">CLAUDE.md</span>
+        <span class="topic-chip">Task Briefs</span>
+        <span class="topic-chip">Slash Commands</span>
+      </div>
+    </a>
+
+    <a class="phase-card build" href="03-autonomous-build.html">
+      <div class="phase-meta">
+        <span class="phase-index">Phase 03</span>
+        <span class="phase-dot"></span>
+        <span class="phase-tag">Reference · Deep dive</span>
+      </div>
+      <h2 class="phase-title">Autonomous Build</h2>
+      <p class="phase-description">Hand it off. The technical masterclass for the autonomous phase: the core loop, machine-readable verification, cross-session state, quality gates, context economics, polish, hardening, and the anti-patterns that sink autonomous builds.</p>
+      <div class="phase-topics">
+        <span class="topic-chip">Core Loop</span>
+        <span class="topic-chip">Verification</span>
+        <span class="topic-chip">Quality Gates</span>
+        <span class="topic-chip">Polish &amp; Hardening</span>
+        <span class="topic-chip">Anti-Patterns</span>
       </div>
     </a>
 
