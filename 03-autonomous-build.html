@@ -607,6 +607,11 @@ footer.page-footer .footer-text {
     fx-shimmer-c6 17s  ease-in-out infinite,
     fx-shimmer-c7 19s  ease-in-out infinite,
     fx-shimmer-c8 23s  ease-in-out infinite;
+  filter: brightness(1) saturate(1);
+  transition: filter 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fx-glow-border:hover::before {
+  filter: brightness(1.8) saturate(1.1);
 }
 
 /* Flow frame wrapper for Section 01 / Section 20 Core Loop containers */
@@ -1142,7 +1147,7 @@ body.fx-booted .fx-hero-boot.fx-hero-settled {
   </header>
 
   <nav class="toc fx-glow-border fx-boot-in d3">
-    <div class="toc-title">Contents</div>
+    <div class="toc-title fx-shimmer-label">Contents</div>
     <ol class="toc-list">
       <li><a href="#s1"><span class="toc-num">01</span>The Core Loop</a></li>
       <li><a href="#s2"><span class="toc-num">02</span>Code Generation</a></li>
